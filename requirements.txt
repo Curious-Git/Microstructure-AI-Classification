@@ -5,3 +5,5 @@ opencv-python
 scikit-learn
 sqlalchemy
 matplotlib
+torch
+opencv-python-headless
