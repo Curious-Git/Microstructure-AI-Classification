@@ -12,7 +12,16 @@ import base64
 from io import BytesIO
 
 # Create directory for reference images
+DATA_DIR = "data"
 SAMPLES_DIR = "data/microstructure_samples"
+
+# Check if 'data' exists as a file and remove it if necessary
+if os.path.exists(DATA_DIR) and not os.path.isdir(DATA_DIR):
+    print(f"Warning: '{DATA_DIR}' exists as a file, removing it to create directory...")
+    os.remove(DATA_DIR)
+
+# Create both parent and child directories
+os.makedirs(DATA_DIR, exist_ok=True)
 os.makedirs(SAMPLES_DIR, exist_ok=True)
 
 # Real microstructure images from Materials Project and other open repositories
@@ -150,7 +159,7 @@ def create_sample_materials_json():
         sample_materials[material_name] = properties
         
     # Write to JSON file
-    with open(os.path.join("data", "sample_materials.json"), "w") as f:
+    with open(os.path.join(DATA_DIR, "sample_materials.json"), "w") as f:
         json.dump(sample_materials, f, indent=4)
     
     print("Created sample_materials.json")
