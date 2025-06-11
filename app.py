@@ -3,7 +3,7 @@ import numpy as np
 import torch
 import cv2
 import matplotlib.pyplot as plt
-import plotly.express as px
+import plotly.express as plotly_express
 import pandas as pd
 import io
 from PIL import Image
@@ -291,9 +291,9 @@ elif selected_sample != "None" and selected_sample in sample_materials:
                     points = []
                     for i in range(np.random.randint(5, 8)):
                         angle = i * (360 / np.random.randint(5, 8))
-                        px = int(x + size * np.cos(np.radians(angle)))
-                        py = int(y + size * np.sin(np.radians(angle)))
-                        points.append([px, py])
+                        point_x = int(x + size * np.cos(np.radians(angle)))
+                        point_y = int(y + size * np.sin(np.radians(angle)))
+                        points.append([point_x, point_y])
                     pts = np.array(points, np.int32)
                     cv2.fillPoly(img_array, [pts], (70, 60, 50))
     
@@ -511,7 +511,7 @@ with tab1:
                 data = data.sort_values("Confidence", ascending=False)
                 
                 # Create the chart
-                fig = px.bar(
+                fig = plotly_express.bar(
                     data, 
                     x="Confidence", 
                     y="Material",
@@ -724,6 +724,8 @@ with tab3:
             
             prop3_key = st.text_input("Property 3 Name", "Density (g/cm³)")
             prop3_val = st.number_input("Property 3 Value", 0.0, 20.0, 7.8)
+            
+            # Defect
             
             # Defect information
             has_defects = st.checkbox("Has Defects")
